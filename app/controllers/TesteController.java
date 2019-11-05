@@ -29,7 +29,7 @@ public class TesteController extends Controller {
     public Result testar() {
 
         return withTransaction( () -> testeService
-            .processar(2 )
+            .processar(100 )
             .map( tupla -> {
                 final ObjectNode json = newObject();
                 json.put("total", tupla._2());

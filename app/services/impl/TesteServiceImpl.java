@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 import static java.lang.String.format;
@@ -44,15 +45,27 @@ public class TesteServiceImpl implements TesteService {
     @Override
     public Optional<Tuple2<List<Perfil>,Integer>> processar( final Integer limite ) throws BusinessException {
 
-        var sequencial = Try.of(() ->
-            supplyAsync(() -> jpaUtil.withTransaction(() ->
-                    Try.of( () -> parametroRepository.reservarNNumeros(11L, 20) )
-                )).get())
-            .getOrElseThrow(() -> new BusinessException("Falhou reservar n numeros"));
+        final Supplier<Try<Tuple2>> contexto = () ->
+            Try.of(() -> {
+                var tupla = parametroRepository.reservarNNumeros(1L, 20);
+                if ( tupla._2() > 20 ) {
+                    jpaUtil.rollback();
+                    throw new BusinessException("valor nao pode superar 20");
+                }
+                return tupla;
+            });
 
-        if ( sequencial.isSuccess() ) {
-            var tupla = sequencial.get();
-            System.out.printf("\n%s - %s\n", tupla._1(), tupla._2() );
+        final Supplier<Try<Tuple2>> job = () -> jpaUtil.withTransaction( contexto );
+
+        var possivelValor = Try
+            .of(() -> supplyAsync( job ).get())
+            .getOrElseThrow(() -> new BusinessException("Falhou execução de thread"));
+
+        if ( possivelValor.isSuccess() ) {
+            var valores = possivelValor.get();
+            System.out.printf("\n%s - %s\n", valores._1(), valores._2() );
+        } else {
+//            throw new BusinessException( possivelValor.getCause() );
         }
 
         IntStream.of(1,2,3,4,5).forEach(value -> {
