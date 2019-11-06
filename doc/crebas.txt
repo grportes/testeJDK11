@@ -1,0 +1,40 @@
+cd /tmp && mkdir play && cd play && sqlite3 exemplo.db
+
+create table parametros(
+    id INTEGER NOT NULL PRIMARY KEY,
+    descricao VARCHAR(100) NOT NULL,
+	 numero INTEGER NOT NULL,
+    version INTEGER NOT NULL
+);
+
+create table perfis (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    descricao VARCHAR(100) NOT NULL,
+    version INTEGER NOT NULL
+);
+
+create table usuarios (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf CHAR(11) NOT NULL,
+    id_perfil INTEGER NULL,
+    version INTEGER NOT NULL,
+
+    FOREIGN KEY(id_perfil) REFERENCES perfis(id)
+);
+
+create unique index idx_usuario_1 on usuarios ( cpf asc );
+
+insert into perfis( descricao, version ) values ( "ADMINISTRADOR", 0 );
+insert into perfis( descricao, version ) values ( "ANALISTA", 0 );
+
+select * from perfis;
+
+insert into usuarios( nome, cpf, id_perfil, version ) values ( "ABC", "03226355600", 1, 0 );
+insert into usuarios( nome, cpf, id_perfil, version ) values ( "XXX", "03526355622", 2, 0 );
+
+select * from usuarios;
+
+insert into parametros( id, descricao, numero, version ) values ( 1, 'PROXIMO CODIGO', 0, 0 );
+
+.exit

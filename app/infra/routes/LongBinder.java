@@ -1,12 +1,16 @@
 package infra.routes;
 
-import play.mvc.PathBindable;
 import play.mvc.QueryStringBindable;
 
 import java.util.Map;
 import java.util.Optional;
 
+import static infra.utils.UtilNumber.createLong;
 import static java.util.Objects.nonNull;
+import static java.util.Optional.empty;
+import static org.apache.commons.lang.ArrayUtils.isNotEmpty;
+import static org.apache.commons.lang.StringUtils.isNotBlank;
+import static org.apache.commons.lang.math.NumberUtils.isNumber;
 
 public class LongBinder implements QueryStringBindable<LongBinder>  {
 
@@ -17,7 +21,8 @@ public class LongBinder implements QueryStringBindable<LongBinder>  {
         this.value = null;
     }
 
-    public LongBinder(Long value) {
+    public LongBinder( final Long value ) {
+
         this.value = value;
     }
 
@@ -27,19 +32,20 @@ public class LongBinder implements QueryStringBindable<LongBinder>  {
         final Map<String, String[]> data
     ) {
 
-
-        data.get(field);
-
-        return Optional.empty();
+        return isNotBlank( field ) && nonNull( data ) && isNotEmpty( data.get(field) ) && isNumber( data.get(field)[0] )
+            ? createLong( data.get(field)[0] ).map( LongBinder::new )
+            : empty();
     }
 
     @Override
     public String unbind(String key) {
+
         return null;
     }
 
     @Override
     public String javascriptUnbind() {
+
         return null;
     }
 
