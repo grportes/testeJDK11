@@ -54,22 +54,6 @@ public final class JPAUtil {
             throw new NullPointerException( "Falhou Commit / EntityManager não foi carregado!!" );
     }
 
-    public void flushAndClear() {
-
-        final EntityManager em = contexto.get();
-        if ( nonNull(em) ) {
-            em.flush();
-            em.clear();
-        }
-    }
-
-    public void flush() {
-
-
-        final EntityManager em = contexto.get();
-        if ( nonNull(em) ) em.flush();
-    }
-
     private boolean getTransaction( final Consumer<EntityTransaction> block ) {
 
         final EntityManager em = contexto.get();
@@ -83,6 +67,21 @@ public final class JPAUtil {
         }
 
         return false;
+    }
+
+    public void flushAndClear() {
+
+        final EntityManager em = contexto.get();
+        if ( nonNull(em) ) {
+            em.flush();
+            em.clear();
+        }
+    }
+
+    public void flush() {
+
+        final EntityManager em = contexto.get();
+        if ( nonNull(em) ) em.flush();
     }
 
     public static EntityManager getEm() {

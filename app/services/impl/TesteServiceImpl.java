@@ -8,6 +8,7 @@ import models.domains.Parametro;
 import models.domains.Perfil;
 import models.repository.ParametroRepository;
 import models.repository.PerfilRepository;
+import play.Logger;
 import services.TesteService;
 
 import javax.inject.Inject;
@@ -27,6 +28,8 @@ public class TesteServiceImpl implements TesteService {
     private final PerfilRepository perfilRepository;
     private final ParametroRepository parametroRepository;
     private final JPAUtil jpaUtil;
+
+    private static final Logger.ALogger logger = Logger.of(TesteServiceImpl.class);
 
     @Inject
     public TesteServiceImpl(
@@ -56,6 +59,7 @@ public class TesteServiceImpl implements TesteService {
                 return tupla;
             });
 
+        logger.debug("Inicio - Nova thread");
         final Supplier<Try<Tuple2>> job = () -> jpaUtil.withTransaction( contexto );
 
         var possivelValor = Try
@@ -68,6 +72,8 @@ public class TesteServiceImpl implements TesteService {
         } else {
             throw new BusinessException( possivelValor.getCause() );
         }
+
+
 
         IntStream.of(1,2,3,4,5).forEach(value -> {
             Perfil perfil = new Perfil();
