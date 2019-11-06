@@ -4,6 +4,7 @@ import infra.exceptions.BusinessException;
 import infra.jpa.JPAUtil;
 import io.vavr.Tuple2;
 import io.vavr.control.Try;
+import models.domains.Parametro;
 import models.domains.Perfil;
 import models.repository.ParametroRepository;
 import models.repository.PerfilRepository;
@@ -65,7 +66,7 @@ public class TesteServiceImpl implements TesteService {
             var valores = possivelValor.get();
             System.out.printf("\n%s - %s\n", valores._1(), valores._2() );
         } else {
-//            throw new BusinessException( possivelValor.getCause() );
+            throw new BusinessException( possivelValor.getCause() );
         }
 
         IntStream.of(1,2,3,4,5).forEach(value -> {
@@ -130,6 +131,19 @@ public class TesteServiceImpl implements TesteService {
     public Optional<String> buscarDescricaoPorId( final Long id ) {
 
         return perfilRepository.buscarDescricaoPorId( id );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void simularErros() {
+
+        Parametro p = new Parametro();
+        p.setId(11L);
+        p.setDescricao("fds");
+        p.setNumero(null);
+        parametroRepository.save(p);
     }
 
 

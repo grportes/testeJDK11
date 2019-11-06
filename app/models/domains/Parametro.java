@@ -4,10 +4,14 @@ import infra.models.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import java.util.Objects;
+
+import static javax.persistence.GenerationType.AUTO;
+import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Entity(name = "Parametro")
@@ -15,16 +19,17 @@ import java.util.Objects;
 public class Parametro extends Model {
 
     @Id
+    @Column(name = "id", columnDefinition = "integer", nullable = false)
     private Long id;
 
-    @Column
+    @Column(name = "descricao", columnDefinition = "varchar(100)", nullable = false)
     private String descricao;
 
-    @Column
+    @Column(name = "numero", columnDefinition = "integer", nullable = false)
     private Long numero;
 
-    @Column
     @Version
+    @Column(name = "version", columnDefinition = "integer", nullable = false)
     private Long version;
 
 

@@ -32,7 +32,6 @@ public final class JPAUtil {
                 contexto.set(em);
                 return block.get();
             } finally {
-                System.out.println("----------- removendo contexto -------------");
                 contexto.remove();
             }
         });
@@ -73,7 +72,6 @@ public final class JPAUtil {
 
     private boolean getTransaction( final Consumer<EntityTransaction> block ) {
 
-
         final EntityManager em = contexto.get();
         if ( nonNull(em) ) {
             final EntityTransaction transaction = em.getTransaction();
@@ -92,9 +90,7 @@ public final class JPAUtil {
         final EntityManager em = contexto.get();
         if ( nonNull(em) ) return em;
 
-        throw new NullPointerException(
-            "EntityManager não foi carregado! Verifique se código em execução utiliza jpaUtil.withTransaction" );
+        throw new NullPointerException( "EntityManager não foi carregado! Verifique uso de jpaUtil.withTransaction" );
     }
-
 
 }

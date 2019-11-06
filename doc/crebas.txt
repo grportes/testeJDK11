@@ -3,7 +3,7 @@ cd /tmp && mkdir play && cd play && sqlite3 exemplo.db
 create table parametros(
     id INTEGER NOT NULL PRIMARY KEY,
     descricao VARCHAR(100) NOT NULL,
-	 numero INTEGER NOT NULL,
+    numero INTEGER NOT NULL,
     version INTEGER NOT NULL
 );
 

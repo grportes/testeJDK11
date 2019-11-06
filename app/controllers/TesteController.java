@@ -10,7 +10,6 @@ import services.TesteService;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.OptionalLong;
 
 import static infra.routes.LongBinder.getValue;
 import static play.libs.Json.newObject;
@@ -76,7 +75,7 @@ public class TesteController extends Controller {
 
     public Result excluirTodos() {
 
-        return withTransaction( () -> {
+        return withTransaction(() -> {
             testeService.excluirTodos();
             return ok();
         });
@@ -84,12 +83,19 @@ public class TesteController extends Controller {
 
     public Result atualizarDescricao() {
 
-        return withTransaction( () -> {
+        return withTransaction(() -> {
             testeService.atualizarTodasDescricoes();
             return ok();
         });
     }
 
+    public Result testarErro() {
 
+        return withTransaction(() -> {
+
+            testeService.simularErros();
+            return ok();
+        });
+    }
 
 }

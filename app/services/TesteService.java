@@ -20,4 +20,6 @@ public interface TesteService {
     long buscarTotalPerfils();
 
     Optional<String> buscarDescricaoPorId( final Long id );
+
+    void simularErros();
 }

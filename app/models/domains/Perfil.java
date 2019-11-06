@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotEmpty;
 
 import java.util.Objects;
 
@@ -21,7 +22,8 @@ public class Perfil extends Model {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "descricao", columnDefinition = "varchar(100)", nullable = false)
+    @NotEmpty( message = "Descrição do perfil")
     private String descricao;
 
     @Column
