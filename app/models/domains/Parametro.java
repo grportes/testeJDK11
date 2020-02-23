@@ -1,17 +1,13 @@
 package models.domains;
 
-import infra.models.Model;
+import infra.model.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import java.util.Objects;
-
-import static javax.persistence.GenerationType.AUTO;
-import static javax.persistence.GenerationType.IDENTITY;
 
 
 @Entity(name = "Parametro")

@@ -1,6 +1,6 @@
 package models.repository.impl;
 
-import infra.models.JPARepository;
+import infra.model.JPARepository;
 import models.domains.Perfil;
 import models.repository.PerfilRepository;
 

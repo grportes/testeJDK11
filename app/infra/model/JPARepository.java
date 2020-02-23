@@ -1,4 +1,4 @@
-package infra.models;
+package infra.model;
 
 import infra.exceptions.BusinessException;
 import infra.jpa.JPAUtil;
@@ -8,7 +8,6 @@ import javax.persistence.PersistenceException;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static java.lang.String.format;
 import static java.util.Optional.ofNullable;

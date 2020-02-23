@@ -1,6 +1,6 @@
 package models.domains;
 
-import infra.models.Model;
+import infra.model.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

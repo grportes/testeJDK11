@@ -1,4 +1,4 @@
-package infra.models;
+package infra.model;
 
 import akka.actor.ActorSystem;
 import play.libs.concurrent.CustomExecutionContext;

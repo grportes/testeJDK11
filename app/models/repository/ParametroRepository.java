@@ -1,7 +1,7 @@
 package models.repository;
 
 import infra.exceptions.BusinessException;
-import infra.models.Repository;
+import infra.model.Repository;
 import io.vavr.Tuple2;
 import models.domains.Parametro;
 
